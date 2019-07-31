@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 int main() {
-    char *HE_LUT[34] = { 
-        "",
+    char *HE_LUT[33] = { 
         "0",//A
         "110",//B
         "1110",//C
@@ -38,8 +37,7 @@ int main() {
         "111111111110"//a
     };
 
-    char *HE_LUT2[26] = {
-        ""
+    char *HE_LUT2[25] = {
         "111111111111111111110",//b
         "10", //c
         "110",//d
@@ -67,8 +65,7 @@ int main() {
         "111111111111111111111111"//z
     };
 
-    char HE_LUT_SYM[59] = {
-        '\0',
+    char HE_LUT_SYM[58] = {
         'A',
         'B',
         'C',
@@ -129,7 +126,6 @@ int main() {
         'z'
     };
     int HE_LUT_LEN[59] = {
-        -1,
         1,
         3,
         4,
@@ -214,7 +210,7 @@ int main() {
             barrel_shifter[j+7] = bitstream[i+7];
         }
         // do strcmpr on lut strings
-        for(i=33, j^=j; i!=0; i--,j^=j) {
+        for(i^=i, j^=j; i<33; i++,j^=j) {
             while(barrel_shifter[j] == HE_LUT[i][j]){
                 j++;
                 if(j == HE_LUT_LEN[i]) {
@@ -233,7 +229,7 @@ int main() {
         }
         // if string not equal and is all 1's break and refill barrel shifter 
         // and do strcmp on next lut
-        if(i == 0){
+        if(i == 33){
             exit_cond = 64+accumulator;
             accumulator += 32;
             for(i = accumulator, j^=j; i <exit_cond; i+=8,j+=8){
@@ -246,7 +242,7 @@ int main() {
                 barrel_shifter[j+6] = bitstream[i+6];
                 barrel_shifter[j+7] = bitstream[i+7];
             }
-            for(i=25, j^=j; i!=0; i--,j^=j) {
+            for(i^=i, j^=j; i<25; i++,j^=j) {
                 while(barrel_shifter[j] == HE_LUT2[i][j]){
                     j++;
                     if(j + 32 == HE_LUT_LEN[i+33]){
