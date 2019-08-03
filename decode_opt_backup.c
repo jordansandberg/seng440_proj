@@ -221,7 +221,7 @@ int main() {
             }
           
             // if string equal, print char
-            if(barrel_shifter[j] == '0' && HE_LUT[i][j] == '0') {
+            if(barrel_shifter[j] + HE_LUT[i][j] == ('0'<<1)) {
                 printf("%c", HE_LUT_SYM[i]);
                 accumulator += j+1;
                 break;
@@ -251,7 +251,7 @@ int main() {
                     }
                 }
                 // if string equal, print char
-                if(barrel_shifter[j] == '0' && HE_LUT2[i][j] == '0') {
+                if(barrel_shifter[j] + HE_LUT2[i][j] == ('0'<<1)) {
                     printf("%c", HE_LUT_SYM[i + 33]);
                     accumulator += j+1;
                     break;
